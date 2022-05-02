@@ -1,0 +1,28 @@
+get:
+  tags:
+    - Dogs
+  description:
+    Get all dogs by filter. staff can view edit action if the dog's company match with staff.
+  responses:
+    '200':
+      description: View of dogs 
+      content:
+        application/json:
+            schema:      # Response body contents
+              type: object
+            examples:
+              expect:  
+                externalValue: '../responseJson/dogs.json'
+    '500':
+      description: server error
+  parameters:
+    - in: query
+      name: filter
+      schema:
+          $ref: ../requestJson/dogFilter.json
+      required: true
+      description: filter data of the dogs
+      content:
+        application/json:
+          schema:
+            $ref: ../requestJson/dogFilter.json

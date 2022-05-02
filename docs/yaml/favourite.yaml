@@ -1,0 +1,29 @@
+parameters:
+  - in: path
+    name: dogId
+    schema:
+      type: integer
+    required: true
+    description: Numeric id of the favourites 
+  - in: path
+    name: isFavourite
+    schema:
+      type: Boolean
+    required: true
+    description: unlike/like
+put:
+  tags:
+    - Favourites
+  description: user like or unlike the dog
+  requestBody:
+    description: All new dog data.
+    required: true
+  responses:
+    '201':
+      description: Update successfully.
+    '403':
+      description: no permission to like or unlike.
+    '404':
+      description: The Dog was not found in the DB.
+    '500':
+      description: server error

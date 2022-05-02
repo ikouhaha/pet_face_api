@@ -1,0 +1,65 @@
+
+parameters:
+  - in: path
+    name: id
+    schema:
+      type: integer
+    required: true
+    description: Numeric id of the dog 
+get:
+  tags:
+    - Dogs
+  description:
+    Get dog by id.  staff can view edit action if the dog's company match with staff
+  responses:
+    '200':
+      description: View of dog 
+      content:
+        application/json:
+            schema:      # Response body contents
+              type: object
+            examples:
+              expect:  
+                externalValue: '../responseJson/dog.json'
+    '400':
+      description: The request filter is not valid.
+    '404':
+      description: User was not found in the DB. 
+    '500':
+      description: server error   
+put:
+  tags:
+    - Dogs
+  description: Update dog by ID.
+  requestBody:
+    description: All new dog data.
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../requestJson/dog.json
+  responses:
+    '200':
+      description: Update confirmation and link to record.
+    '400':
+      description: The request body is not valid.      
+    '403':
+      description: no permission to update the dog.
+    '404':
+      description: Dog was not found in the DB.
+    '500':
+      description: server error
+delete:
+  tags:
+    - Dogs
+  description: Delete dog by ID.
+responses:
+    '200':
+      description: Delete confirmation.
+    '403':
+      description: no permission to delete the dog.
+    '404':
+      description: Dog was not found in the DB.
+    '500':
+      description: server error
+

@@ -1,0 +1,16 @@
+[{
+  "_id": "breeds",
+  "sequence_value": 173
+},{
+  "_id": "articles",
+  "sequence_value": 1
+},{
+  "_id": "users",
+  "sequence_value": 78
+},{
+  "_id": "companies",
+  "sequence_value": 9
+},{
+  "_id": "dogs",
+  "sequence_value": 86
+}]

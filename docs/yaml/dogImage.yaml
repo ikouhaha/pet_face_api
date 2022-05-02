@@ -1,0 +1,19 @@
+
+parameters:
+  - in: path
+    name: id
+    schema:
+      type: integer
+    required: true
+    description: Numeric id of the dog
+get:
+  tags:
+    - Dogs
+  description:
+    Get dog image by id.
+  responses:
+    '200':
+      description: return the dog's image string
+    '500':
+      description: server error   
+

@@ -1,0 +1,279 @@
+[{
+  "_id": {
+    "$oid": "623df8537fad0c1952dc4e54"
+  },
+  "email": "ikouhaha123214888@gmail.com",
+  "username": "ikouhaha123888@gmail.com",
+  "password": "123",
+  "role": "user",
+  "dateRegistered": {
+    "$date": "2022-03-25T17:13:55.263Z"
+  },
+  "id": 1,
+  "needUpdateUser": false
+},{
+  "_id": {
+    "$oid": "623df970447a0862750ac579"
+  },
+  "email": "admin@gmail.com",
+  "username": "admin",
+  "password": "$2a$10$kCKRxpMllmNHaewMvCGXrezRBzwxt.zC7ANmuxo8pIEHgo0u6/rAq",
+  "role": "admin",
+  "dateRegistered": {
+    "$date": "2022-03-25T17:18:40.530Z"
+  },
+  "id": 2,
+  "companyCode": "df96371-eac940b2-a734-1cf4a8ba433f"
+},{
+  "_id": {
+    "$oid": "623ef4bc1b300b511231a726"
+  },
+  "email": "bob@gmail.com",
+  "username": "bob",
+  "password": "$2a$10$DPSRQInUY/1SOvqLCOCdK.brA/1orEhU/2ryziJt0DCQuCg0rv98S",
+  "role": "staff",
+  "dateRegistered": {
+    "$date": "2022-04-05T13:10:46.505Z"
+  },
+  "company": {
+    "_id": {
+      "$oid": "623eefe2436a33b7c093688a"
+    },
+    "name": "company2",
+    "email": "bob@gmail.com",
+    "phone": "2223334",
+    "address": "123124",
+    "dateRegistered": {
+      "$date": "2022-03-26T10:50:10.716Z"
+    },
+    "code": "7df96371-eac9-40b2-a734-1cf4a8ba433f",
+    "id": 3
+  },
+  "id": 32,
+  "companyCode": "7df96371-eac9-40b2-a734-1cf4a8ba433f"
+},{
+  "_id": {
+    "$oid": "624c3fd6cf878dd2f72f78ec"
+  },
+  "email": "bob2@gmail.com",
+  "username": "bob2122",
+  "password": "$2a$10$DPSRQInUY/1SOvqLCOCdK.brA/1orEhU/2ryziJt0DCQuCg0rv98S",
+  "role": "staff",
+  "dateRegistered": {
+    "$date": "2022-03-26T11:10:40.859Z"
+  },
+  "companyCode": "7df96371-eac9-40b2-a734-1cf4a8ba433f",
+  "id": 32,
+  "company": {
+    "_id": {
+      "$oid": "623eefe2436a33b7c093688a"
+    },
+    "name": "company2",
+    "email": "bob@gmail.com",
+    "phone": "2223334",
+    "address": "123124",
+    "dateRegistered": {
+      "$date": "2022-03-26T10:50:10.716Z"
+    },
+    "code": "7df96371-eac9-40b2-a734-1cf4a8ba433f",
+    "id": 3
+  }
+},{
+  "_id": {
+    "$oid": "62519eb51549a68f6c3bd632"
+  },
+  "email": "ab123123c@gmail.com",
+  "username": "a123bc",
+  "password": "$2a$10$tE29NgplpMI3171nQln8sOevGyBchZBmYuJvlKvMgoNZ5RqyAEixy",
+  "role": "user",
+  "dateRegistered": {
+    "$date": "2022-04-09T14:56:53.380Z"
+  },
+  "id": 35
+},{
+  "_id": {
+    "$oid": "62519f92801b41488c8f90f2"
+  },
+  "email": "ab12314423c@gmail.com",
+  "username": "a12123bc",
+  "password": "$2a$10$./QsSaxJT.m42tdMNfsJJeTEKD5FgMQmFb/1zVx2qHwMNQaT/WNda",
+  "role": "user",
+  "dateRegistered": {
+    "$date": "2022-04-09T15:00:34.251Z"
+  },
+  "id": 36
+},{
+  "_id": {
+    "$oid": "6251a01a44b5fec8b5655223"
+  },
+  "email": "ab12314421233c@gmail.com",
+  "username": "a12123bc4",
+  "password": "$2a$10$aTx/L23vCVomA.NQ2ubKte2As/95xgVHIfA01TXkvkIEyxf2WyBbm",
+  "role": "staff",
+  "companyCode": "7df96371-eac9-40b2-a734-1cf4a8ba433f",
+  "dateRegistered": {
+    "$date": "2022-04-09T15:02:50.328Z"
+  },
+  "company": {
+    "_id": {
+      "$oid": "623eefe2436a33b7c093688a"
+    },
+    "name": "company2",
+    "email": "bob@gmail.com",
+    "phone": "2223334",
+    "address": "123124",
+    "dateRegistered": {
+      "$date": "2022-03-26T10:50:10.716Z"
+    },
+    "code": "7df96371-eac9-40b2-a734-1cf4a8ba433f",
+    "id": 3
+  },
+  "id": 38
+},{
+  "_id": {
+    "$oid": "62602022ca2c1a2c9b8c1337"
+  },
+  "email": "ikouhaha888@gmail.com",
+  "password": "$2a$10$RPijycOYmtTNZPyI3gEe9OgAzLuwcNZ6W8BDfsQ9fg87UH9XWBcCu",
+  "username": "ikouhaha888",
+  "firstName": "Tak",
+  "lastName": "Ho",
+  "role": "user",
+  "avatarUrl": "https://lh3.googleusercontent.com/a/AATXAJygpGbJ-93aSk6o23tvQJzCjISWkYesepQQvRuw=s96-c",
+  "googleId": "111315480648705867941",
+  "dateRegistered": {
+    "$date": "2022-04-20T15:00:49.630Z"
+  },
+  "favourites": {
+    "77": true,
+    "78": true,
+    "79": false,
+    "80": false,
+    "81": true,
+    "82": true,
+    "83": true
+  },
+  "id": 69
+},{
+  "_id": {
+    "$oid": "62612ee484cf2204c3b003a6"
+  },
+  "email": "ikouhaha999@gmail.com",
+  "password": "$2a$10$o3T2qofJB4bH7Rf.Vo6ut.jviXfFv/EmEWEoVw7DPbcSwJmms5BeK",
+  "username": "ikouhaha999",
+  "firstName": "Dennis",
+  "lastName": "Au Yeung",
+  "role": "staff",
+  "companyCode": "7df96371-eac9-40b2-a734-1cf4a8ba433f",
+  "avatarUrl": "https://lh3.googleusercontent.com/a/AATXAJwx1Xg_pxBWwoCNbG_u-lvz24ZLjtZxpFoBVTZt=s96-c",
+  "googleId": "113787842930521853529",
+  "dateRegistered": {
+    "$date": "2022-04-21T10:16:04.326Z"
+  },
+  "favourites": {
+    "41": false,
+    "44": false,
+    "45": false,
+    "48": false,
+    "49": false,
+    "50": false,
+    "51": false,
+    "52": false,
+    "53": false,
+    "54": false,
+    "55": false,
+    "56": false,
+    "57": false,
+    "58": false,
+    "59": false,
+    "60": false,
+    "61": false,
+    "62": false,
+    "63": false,
+    "64": true,
+    "65": false,
+    "66": true,
+    "67": false,
+    "68": true,
+    "69": true,
+    "70": false,
+    "71": true,
+    "72": true,
+    "73": true,
+    "74": true,
+    "75": true,
+    "76": true,
+    "77": true,
+    "78": true,
+    "79": true,
+    "80": true,
+    "81": true,
+    "82": true,
+    "83": false,
+    "84": true
+  },
+  "company": {
+    "_id": {
+      "$oid": "623eefe2436a33b7c093688a"
+    },
+    "name": "company2",
+    "email": "bob@gmail.com",
+    "phone": "2223334",
+    "address": "123124",
+    "dateRegistered": {
+      "$date": "2022-03-26T10:50:10.716Z"
+    },
+    "code": "7df96371-eac9-40b2-a734-1cf4a8ba433f",
+    "id": 3
+  },
+  "id": 71
+},{
+  "_id": {
+    "$oid": "6263afd99931de33de39141a"
+  },
+  "email": "dennisauyeung@legatosolutions.com",
+  "password": "$2a$10$6BITnUrRGWrWW0jfVH7fZur7NyFCgB9hNVzgcnLivICIwyECjb/BK",
+  "username": "dennisauyeung",
+  "firstName": "Dennis",
+  "lastName": "Au-Yeung",
+  "role": "user",
+  "avatarUrl": "https://lh3.googleusercontent.com/a/AATXAJyzetG1ehaZy7LI0Wanz3LIuL87iETNNtLrIxPo=s96-c",
+  "googleId": "114231561530886764789",
+  "dateRegistered": {
+    "$date": "2022-04-23T07:50:49.556Z"
+  },
+  "favourites": {},
+  "id": 73
+},{
+  "_id": {
+    "$oid": "6264d079ee46dda984f5da8f"
+  },
+  "email": "ryoma10615@gmail.com",
+  "password": "$2a$10$04HuB7sUQf00FPyamDFXeObVbm4k9HWqB0VE4bP5W/eel.A4hF4ce",
+  "username": "ryoma10615",
+  "firstName": "玉晴",
+  "lastName": "黃",
+  "role": "staff",
+  "companyCode": "7df96371-eac9-40b2-a734-1cf4a8ba433f",
+  "avatarUrl": "https://lh3.googleusercontent.com/a/AATXAJx-TKc86ORWTpil0XUkl7ndHL2EN9PpJ9uCVuYh=s96-c",
+  "googleId": "114410403683818309016",
+  "dateRegistered": {
+    "$date": "2022-04-24T04:22:15.133Z"
+  },
+  "favourites": {},
+  "company": {
+    "_id": {
+      "$oid": "623eefe2436a33b7c093688a"
+    },
+    "name": "company2",
+    "email": "bob@gmail.com",
+    "phone": "2223334",
+    "address": "123124",
+    "dateRegistered": {
+      "$date": "2022-03-26T10:50:10.716Z"
+    },
+    "code": "7df96371-eac9-40b2-a734-1cf4a8ba433f",
+    "id": 3
+  },
+  "id": 77
+}]

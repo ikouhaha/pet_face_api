@@ -1,0 +1,25 @@
+{
+    "_id": "62612ee484cf2204c3b003a6",
+    "email": "ikouhaha999@gmail.com",
+    "password": "$2a$10$kJ898C4pVZyGY2mAnfFZi.B5i96ujHJFzcdPo23atGVfM0dBMolGu",
+    "username": "ikouhaha999",
+    "firstName": "Dennis",
+    "lastName": "Au Yeung",
+    "role": "staff",
+    "companyCode": "7df96371-eac9-40b2-a734-1cf4a8ba433f",
+    "avatarUrl": "https://lh3.googleusercontent.com/a/AATXAJwx1Xg_pxBWwoCNbG_u-lvz24ZLjtZxpFoBVTZt=s96-c",
+    "googleId": "113787842930521853529",
+    "dateRegistered": "2022-04-21T10:16:04.326Z",
+    "favourites": {},
+    "company": {
+        "_id": "623eefe2436a33b7c093688a",
+        "name": "company2",
+        "email": "bob@gmail.com",
+        "phone": "2223334",
+        "address": "123124",
+        "dateRegistered": "2022-03-26T10:50:10.716Z",
+        "code": "7df96371-eac9-40b2-a734-1cf4a8ba433f",
+        "id": 3
+    },
+    "id": 71
+}

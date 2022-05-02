@@ -1,0 +1,116 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Back End Demonstration API
+  description: A simple blog API.
+  contact:
+    name: Dennis Au-Yeung
+    email: 217013622@stu.vtc.edu.hk
+  license:
+    name: Apache 2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+servers:
+  - url: 'http://localhost:10888/api/v1'
+    description: Development server
+tags:
+  - name: Authentication
+    description: API endpoints for user login/logout.
+  - name: Users
+    description: API endpoints for user management.
+  - name: Breeds
+    description: Access and view breeds of the dog
+  - name: Dogs
+    description: API endpoints for dog management.
+  - name: Favourites
+    description: API endpoints for favourites view and like/unlike.
+  - name: Comments
+    description: API endpoints for guest and staff comment for the dog.
+paths:
+  /auth:
+    post:
+      tags:
+        - Authentication
+      description: API endpoints for user login by using basic authentication
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+                schema:      # Response body contents
+                  type: object
+                examples:
+                  expect:  
+                    externalValue: '../responseJson/login.json'
+        '401':
+          description: Not authenticated   
+        '500':
+          description: Server error   
+  /google/token:
+    post:
+      tags:
+        - Authentication
+      description: API endpoints for user login by using google token
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+                schema:      # Response body contents
+                  type: object
+                examples:
+                  expect:  
+                    externalValue: '../responseJson/login.json'          
+        '401':
+          description: Not authenticated 
+        '500':
+          description: Server error     
+  /logout:
+    get:
+      tags:
+        - Authentication
+      description: API endpoints for user logout 
+      auth:
+        route_name: auth
+      responses:
+        '200':
+          description: OK
+        '500':
+          description: Server error          
+  /users:
+    $ref: "./users.yaml"
+  /users/{id}:
+    $ref: "./user.yaml"
+  /users/profile:
+    $ref: "./profile.yaml"
+  /users/connect/{id}:
+    $ref: "./userGoogle.yaml"    
+  /users/p/{id}:
+    $ref: "./userPwd.yaml" 
+  /breeds:
+    $ref: "./breeds.yaml"
+  /breeds/{id}:
+    $ref: "./breed.yaml"
+  /dogs:
+    $ref: "./dogs.yaml"
+  /dogs/{filter}:
+    $ref: "./dogFilter.yaml"
+  /dogs/{id}:
+    $ref: "./dog.yaml"
+  /dogs/image/{id}:
+    $ref: "./dogImage.yaml"
+  /favourites/{filter}:
+    $ref: "./favourites.yaml"
+  /favourites/{dogId}/{isFavourite}:
+    $ref: "./favourite.yaml"
+  /comments/{dogId}:
+    $ref: "./comments.yaml"
+  /comments:
+    $ref: "./comment.yaml"
+  
+
+
+# router.post('/',passport.authenticate(['basic'],{session:false}), signin)
+
+
+# router.get('/signout',signout)
+# router.post('/google/token',passport.authenticate(['google-token'],{session:false}), googleSigninByToken)

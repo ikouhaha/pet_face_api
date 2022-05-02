@@ -1,0 +1,18 @@
+
+post:
+  tags:
+    - Dogs
+  description:
+    Create a new dog.
+  requestBody:
+    description: All new dog data.
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../requestJson/dog.json
+  responses:
+    '201':
+      description: Dog created
+    '500':
+      description: server error

@@ -1,0 +1,34 @@
+get:
+  tags:
+    - Users
+  description:
+    Get all users.
+  responses:
+    '200':
+      description: View of users 
+      content:
+          application/json:
+              schema:      # Response body contents
+                type: object
+              examples:
+                expect:  
+                  externalValue: '../responseJson/users.json'      
+    '403':
+      description: no permission to view the users.
+    '500':
+      description: server error
+post:
+  tags:
+    - Users
+  description:
+    Create a new user.
+  requestBody:
+    description: All new user data.
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../requestJson/user.json
+  responses:
+    '201':
+      description: User created

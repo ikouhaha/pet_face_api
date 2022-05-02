@@ -1,0 +1,28 @@
+parameters:
+  - in: path
+    name: id
+    schema:
+      type: integer
+    required: true
+    description: Numeric id of the user
+put:
+  tags:
+    - Users
+  description:
+    connect with google 
+  requestBody:
+    description: request body for google id and avatar.
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../requestJson/userGoogle.json
+  responses:
+    '201':
+      description: update sccessfully
+    '400':
+      description: The google account is registered      
+    '403':
+      description: no permission to view the users.
+    '500':
+      description: server error

@@ -1,0 +1,20 @@
+
+
+
+post:
+  tags:
+    - Comments
+  description:
+    Create a new comment.
+  requestBody:
+    description:  new comment data.
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../requestJson/comment.json
+  responses:
+    '201':
+      description: Comment created
+    '500':
+      description: server error

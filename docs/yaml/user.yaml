@@ -1,0 +1,51 @@
+
+parameters:
+  - in: path
+    name: id
+    schema:
+      type: integer
+    required: true
+    description: Numeric id of the user
+get:
+  tags:
+    - Users
+  description:
+    Get user by id.
+  responses:
+    '200':
+      description: View of user 
+      content:
+          application/json:
+              schema:      # Response body contents
+                type: object
+              examples:
+                expect:  
+                  externalValue: '../responseJson/user.json'
+    '403':
+      description: no permission to view the user.
+    '404':
+      description: User was not found in the DB. 
+    '500':
+      description: server error   
+put:
+  tags:
+    - Users
+  description: Update user profile by ID.
+  requestBody:
+    description: All change of user data.
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../requestJson/userProfile.json#
+  responses:
+    '201':
+      description: Update successfully.
+    '400':
+      description: The request body is not valid.
+    '403':
+      description: no permission to update the user.
+    '404':
+      description: Users was not found in the DB.
+    '500':
+      description: server error
