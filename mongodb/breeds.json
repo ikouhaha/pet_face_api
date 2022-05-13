@@ -1301,7 +1301,7 @@
       }
     },
     {
-      "bred_for": "Guard dogs, defending sheep from predators, mainly wolves, jackals and bears",
+      "bred_for": "Guard pets, defending sheep from predators, mainly wolves, jackals and bears",
       "breed_group": "Working",
       "height": {
         "imperial": "24 - 33.5",
@@ -3620,7 +3620,7 @@
       }
     },
     {
-      "bred_for": "Good luck charms, mascots, watchdogs, herding dogs, and companions",
+      "bred_for": "Good luck charms, mascots, watchpets, herding pets, and companions",
       "breed_group": "Non-Sporting",
       "height": {
         "imperial": "14 - 17",

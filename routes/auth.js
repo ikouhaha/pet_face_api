@@ -3,6 +3,7 @@ const router = Router({ prefix: '/api/v1/auth' })
 const util = require('../helpers/util')
 const passport = require('../helpers/passport.js')
 const config = require('../config')
+const auth = require('../controllers/auth')
 
 const a =  1
 const jwt = require('jsonwebtoken');
@@ -10,7 +11,7 @@ const jwt = require('jsonwebtoken');
 router.post('/',passport.authenticate(['basic'],{session:false}), signin)
 
 
-router.get('/signout',signout)
+router.get('/signout',auth,signout)
 router.post('/google/token',passport.authenticate(['google-token'],{session:false}), googleSigninByToken)
 
 async function signin(ctx, next) {
@@ -69,7 +70,10 @@ async function googleSigninByToken(ctx, next) {
 
 async function signout(ctx) {
   try {
-    
+    if (ctx.isAuthenticated()) {
+      ctx.status = 200
+      
+    }
     ctx.status = 200
     ctx.body = {isLogin:false,token: ''}
   } catch (ex) {

@@ -7,11 +7,11 @@ const Router = require('koa-router')
 const userModel = require('../models/users')
 const breedModel = require('../models/breeds')
 const commentModel = require('../models/comments')
-const model = require('../models/dogs')
+const model = require('../models/pets')
 const can = require('../permission/dog')
 const auth = require('../controllers/auth')
 const authWithPublic = require('../controllers/authWithPublic')
-const router = Router({ prefix: '/api/v1/dogs' })
+const router = Router({ prefix: '/api/v1/pets' })
 const util = require('../helpers/util')
 const { validateDog, validateDogFilter } = require('../controllers/validation')
 const config = require('../config')
@@ -19,16 +19,42 @@ const config = require('../config')
 
 //(ctx, next) => auth(ctx, next, true)
 // for public user , so specifiy auth method , if user is not found in db
-// , they can read dogs but can't take any action
+// , they can read pets but can't take any action
 // otherwise , auth will check the user is login or not
 router.get('/', authWithPublic, filterConverter, validateDogFilter, getAll)
 
 router.get('/:id([0-9]{1,})', authWithPublic, getById);
+
+router.get('/profile', auth, getAllByUserId);
+
 router.get('/image/:id([0-9]{1,})', getImageById);
 router.post('/', auth, validateDog, createDog)
 
 router.put('/:id([0-9]{1,})', auth, validateDog, updateDog)
 router.del('/:id([0-9]{1,})/:companyCode', auth, deleteDog)
+
+
+async function getAllByUserId(ctx, next) {
+  try {            
+    const results = await model.getAllByFilter(
+      { "createdBy": ctx.state.user.id },
+      {unlimited:true,sorting:1},
+    ) 
+    if (results.length) {
+      ctx.status = 200
+      ctx.body = results          
+    }else{
+      //return empty
+      ctx.status = 200
+      ctx.body = []      
+    }
+
+  } catch (ex) {
+    util.createErrorResponse(ctx, ex)
+
+  }
+}
+
 
 async function filterConverter(ctx, next) {
   const tryConvert = (ctx, key) => {

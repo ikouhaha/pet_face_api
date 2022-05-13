@@ -1,18 +1,18 @@
 get:
   tags:
-    - Dogs
+    - pets
   description:
-    Get all dogs by filter. staff can view edit action if the dog's company match with staff.
+    Get all pets by filter. staff can view edit action if the dog's company match with staff.
   responses:
     '200':
-      description: View of dogs 
+      description: View of pets 
       content:
         application/json:
             schema:      # Response body contents
               type: object
             examples:
               expect:  
-                externalValue: '../responseJson/dogs.json'
+                externalValue: '../responseJson/pets.json'
     '500':
       description: server error
   parameters:
@@ -21,7 +21,7 @@ get:
       schema:
           $ref: ../requestJson/dogFilter.json
       required: true
-      description: filter data of the dogs
+      description: filter data of the pets
       content:
         application/json:
           schema:

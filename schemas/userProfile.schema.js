@@ -30,7 +30,7 @@ module.exports = {
         },
         "googleId": {
             "description": "for the google register user",
-            "type": "string"
+            "type": "string?"
         },
         "companyCode": {
             "description": "the company register code",

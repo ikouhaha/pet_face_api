@@ -6,6 +6,9 @@ const can = require('../permission/user')
 const auth = require('../controllers/auth')
 const router = Router({ prefix: '/api/v1/users' })
 const util = require('../helpers/util')
+const config = require('../config')
+const axios = require('axios')
+
 const { validateUser,validateUserProfile,validateUserPwd,validateUserGoogle } = require('../controllers/validation')
 
 router.get('/', auth, getAll)
@@ -30,6 +33,10 @@ async function profile(ctx, ext) {
 
   }
 }
+
+
+
+ 
 
 async function getAll(ctx) {
   try {
@@ -76,7 +83,7 @@ async function createUser(ctx) {
     
     body.dateRegistered = new Date()
     body.password = util.getHash(body.password)
-    
+    body.isRegisterPet = false
     
     if (body.role == "staff") {
       let company = await companyModel.findByCode(body.companyCode)

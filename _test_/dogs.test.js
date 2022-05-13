@@ -32,12 +32,12 @@ const expectedInner = {
 
 
 
-describe('Dogs Testing Cases', () => {
+describe('pets Testing Cases', () => {
 
-  it('Return all dogs', async () => {
+  it('Return all pets', async () => {
     //login with admin account , basic auth
     const res = await request(app.callback())
-      .get('/api/v1/dogs?page=1&limit=10')      
+      .get('/api/v1/pets?page=1&limit=10')      
       .send({})
 
     expect(res.statusCode).toEqual(200)
@@ -49,11 +49,11 @@ describe('Dogs Testing Cases', () => {
 
   })
 
-  it('Return all dogs and test staff action', async () => {
+  it('Return all pets and test staff action', async () => {
     const token = await helper.getLoginToken(request(app.callback()), "ikouhaha999", "123")
     //login with admin account , basic auth
     const res = await request(app.callback())
-      .get('/api/v1/dogs?page=1&limit=10')    
+      .get('/api/v1/pets?page=1&limit=10')    
       .set({ Authorization: token })   
       .send({})
 
@@ -67,9 +67,9 @@ describe('Dogs Testing Cases', () => {
 
   })
 
-  it('Return the specified dogs', async () => {
+  it('Return the specified pets', async () => {
     const res = await request(app.callback())
-      .get('/api/v1/dogs/80')      
+      .get('/api/v1/pets/80')      
       .send({})
 
     expect(res.statusCode).toEqual(200)
@@ -78,10 +78,10 @@ describe('Dogs Testing Cases', () => {
 
   })
 
-  it('Return the specified dogs and test staff action', async () => {
+  it('Return the specified pets and test staff action', async () => {
     const token = await helper.getLoginToken(request(app.callback()), "ikouhaha999", "123")
     const res = await request(app.callback())
-      .get('/api/v1/dogs/80')     
+      .get('/api/v1/pets/80')     
       .set({ Authorization: token }) 
       .send({})
     //ensure the staff have permission to edit
@@ -96,7 +96,7 @@ describe('Dogs Testing Cases', () => {
     const token = await helper.getLoginToken(request(app.callback()), "ikouhaha999", "123")
     
     const res = await request(app.callback())
-      .post('/api/v1/dogs')
+      .post('/api/v1/pets')
       .set({ Authorization: token })
       .send({
         "name":"test",
@@ -115,7 +115,7 @@ describe('Dogs Testing Cases', () => {
     const token = await helper.getLoginToken(request(app.callback()), "ikouhaha999", "123")
     
     const res = await request(app.callback())
-      .put('/api/v1/dogs/37')
+      .put('/api/v1/pets/37')
       .set({ Authorization: token })
       .send({
         "name":"test",
@@ -134,7 +134,7 @@ describe('Dogs Testing Cases', () => {
     const token = await helper.getLoginToken(request(app.callback()), "ikouhaha999", "123")
     
     const res = await request(app.callback())
-      .del('/api/v1/dogs/38/7df96371-eac9-40b2-a734-1cf4a8ba433f')
+      .del('/api/v1/pets/38/7df96371-eac9-40b2-a734-1cf4a8ba433f')
       .set({ Authorization: token })
       .send({})
 
@@ -144,7 +144,7 @@ describe('Dogs Testing Cases', () => {
 
   it("get the dog's image load", async () => {
     const res = await request(app.callback())
-      .get('/api/v1/dogs/image/71')
+      .get('/api/v1/pets/image/71')
       .send()
 
     expect(res.statusCode).toEqual(200)

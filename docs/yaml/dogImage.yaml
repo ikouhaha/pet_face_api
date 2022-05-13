@@ -8,7 +8,7 @@ parameters:
     description: Numeric id of the dog
 get:
   tags:
-    - Dogs
+    - pets
   description:
     Get dog image by id.
   responses:

@@ -20,11 +20,11 @@ ac.grant('staff')
   .on('dog')
 ac.grant('admin').execute('delete').on('dog')
 
-//readdogs  
-ac.grant('public').execute('read').on('dogs')
-ac.grant('user').execute('read').on('dogs')
-ac.grant('staff').execute('read').on('dogs')
-ac.grant('admin').execute('read').on('dogs')
+//readpets  
+ac.grant('public').execute('read').on('pets')
+ac.grant('user').execute('read').on('pets')
+ac.grant('staff').execute('read').on('pets')
+ac.grant('admin').execute('read').on('pets')
 
 //read dog
 ac.grant('public').execute('read').on('dog')
@@ -33,7 +33,7 @@ ac.grant('admin').execute('read').on('dog')
 ac.grant('staff').execute('read').on('dog')
 
 
-exports.readAll = (requester) => ac.can(requester.role).execute('read').sync().on('dogs')
+exports.readAll = (requester) => ac.can(requester.role).execute('read').sync().on('pets')
 
 
 exports.read = (requester) => ac.can(requester.role).execute('read').sync().on('dog')

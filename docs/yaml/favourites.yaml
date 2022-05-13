@@ -12,7 +12,7 @@ get:
               type: object
             examples:
               expect:  
-                externalValue: '../responseJson/dogs.json'
+                externalValue: '../responseJson/pets.json'
     '403':
       description: no permission to view the user favourites.
     '500':
@@ -23,7 +23,7 @@ get:
       schema:
           $ref: ../requestJson/dogFilter.json
       required: true
-      description: filter data of the dogs
+      description: filter data of the pets
       content:
         application/json:
           schema:
