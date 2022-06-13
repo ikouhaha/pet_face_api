@@ -1,6 +1,7 @@
 const {Validator,ValidationError} = require('jsonschema')
 //const ValidationError  = require('sequelize/types')
 
+const pet= require('../schemas/pet.schema.js')
 const dog= require('../schemas/dog.schema.js')
 const dogFilter = require('../schemas/dogFilter.schema.js')
 const user = require('../schemas/user.schema.js')
@@ -39,6 +40,25 @@ exports.validateDogFilter = async(ctx,next) => {
     const body = ctx.request.query
     try{
         v.validate(body,dogFilter,validationOptions)
+        await next()
+    }catch(error){
+        if(error instanceof ValidationError){
+            ctx.body = error
+            ctx.status = 400
+        }else{
+            throw error
+        }
+    }
+}
+
+exports.validatePet = async(ctx,next) => {
+    const validationOptions = {
+        throwError:true,
+        allowUnknownAttributes:false
+    }
+    const body = ctx.request.body
+    try{
+        v.validate(body,pet,validationOptions)
         await next()
     }catch(error){
         if(error instanceof ValidationError){

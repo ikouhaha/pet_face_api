@@ -25,7 +25,7 @@ async function profile(ctx, ext) {
   if (ctx.isAuthenticated()) {
     ctx.status = 200
     const user = { ...ctx.state.user, isLogin: true,token:ctx.headers.authorization }
-    delete user.googleId
+    
     delete user.password
     ctx.body = user
   } else {
@@ -141,6 +141,8 @@ async function updateUser(ctx) {
   try {
     let id = parseInt(ctx.params.id)
     const body = ctx.request.body
+    //not need update google id
+   
     //check the role permission
     const permission = can.update(ctx.state.user, { "id": id })
     if (!permission.granted) {

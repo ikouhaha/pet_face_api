@@ -8,12 +8,12 @@ const userModel = require('../models/users')
 const breedModel = require('../models/breeds')
 const commentModel = require('../models/comments')
 const model = require('../models/pets')
-const can = require('../permission/dog')
+const can = require('../permission/pet')
 const auth = require('../controllers/auth')
 const authWithPublic = require('../controllers/authWithPublic')
 const router = Router({ prefix: '/api/v1/pets' })
 const util = require('../helpers/util')
-const { validateDog, validateDogFilter } = require('../controllers/validation')
+const { validatePet } = require('../controllers/validation')
 const config = require('../config')
 
 
@@ -21,17 +21,39 @@ const config = require('../config')
 // for public user , so specifiy auth method , if user is not found in db
 // , they can read pets but can't take any action
 // otherwise , auth will check the user is login or not
-router.get('/', authWithPublic, filterConverter, validateDogFilter, getAll)
-
+// router.get('/', authWithPublic, filterConverter, validateDogFilter, getAll)
+router.get('/', authWithPublic, getAll)
 router.get('/:id([0-9]{1,})', authWithPublic, getById);
 
 router.get('/profile', auth, getAllByUserId);
 
 router.get('/image/:id([0-9]{1,})', getImageById);
-router.post('/', auth, validateDog, createDog)
+router.post('/', auth, validatePet, createPet)
 
-router.put('/:id([0-9]{1,})', auth, validateDog, updateDog)
-router.del('/:id([0-9]{1,})/:companyCode', auth, deleteDog)
+router.put('/:id([0-9]{1,})', auth, validatePet, updatePet)
+router.del('/:id([0-9]{1,})', auth, deletepet)
+
+
+async function getAll(ctx, next) {
+  try {            
+    const results = await model.getAllByFilter(
+      {},
+      {unlimited:true,sorting:1},
+    ) 
+    if (results.length) {
+      ctx.status = 200
+      ctx.body = results          
+    }else{
+      //return empty
+      ctx.status = 200
+      ctx.body = []      
+    }
+
+  } catch (ex) {
+    util.createErrorResponse(ctx, ex)
+
+  }
+}
 
 
 async function getAllByUserId(ctx, next) {
@@ -76,7 +98,7 @@ async function filterConverter(ctx, next) {
 }
 
 
-
+/*
 async function getAll(ctx, next) {
   try {
     const body = ctx.request.query
@@ -104,20 +126,13 @@ async function getAll(ctx, next) {
           result.canUpdate = canUpdate;
           result.canDelete = canDelete;
           result.isFavourite = ctx.state.user.favourites[result.id]
-          
         }
-
       }
-      
-      
-
       ctx.body = {}
       ctx.body.canCreate = canCreate
       ctx.body.totalCount = totalCount
       ctx.body.list = results
       ctx.body.favourites = ctx.isAuthenticated()?ctx.state.user.favourites:{}
-    
-      
     }else{
       //return empty
       ctx.status = 200
@@ -133,6 +148,7 @@ async function getAll(ctx, next) {
 
   }
 }
+*/
 
 async function getImageById(ctx, next) {
   const defaultImg = (ctx) => {
@@ -201,25 +217,16 @@ async function getById(ctx) {
   }
 }
 
-async function createDog(ctx) {
+async function createPet(ctx) {
   try {
     const body = ctx.request.body
-    const permission = can.create(ctx.state.user, body)
+    const permission = can.create(ctx.state.user)
+
     if (!permission.granted) {
       ctx.status = 403;
       return;
     }
-    const breed = await breedModel.getById(body.breedID)
-    const createBy = await userModel.getById(body.createdBy)
-    body.breed = breed;
-    body.createBy = createBy;
-    
-    //not need to save this field, read it after loading
-    delete body.isFavourite
-    delete body.comments
-    delete body.breed
-    delete body.createBy
-
+    body.createdBy = ctx.state.user.id
     let result = await model.add(body)
     if (result) {
       ctx.status = 201
@@ -235,18 +242,18 @@ async function createDog(ctx) {
 }
 
 
-async function deleteDog(ctx) {
+async function deletepet(ctx) {
 
   try {
     let id = parseInt(ctx.params.id)
-    const companyCode = ctx.params.companyCode
-    const permission = can.delete(ctx.state.user, {companyCode:companyCode})
+    const pet = await model.getById(id)    
+    const permission = can.delete(ctx.state.user, {createdBy:pet.createdBy})
     if (!permission.granted) {
       ctx.status = 403;
       return;
-    }
+    } 
     let result = await model.delete(id)
-    if (result) {
+    if (result) { 
       ctx.status = 201
       ctx.body = result
     } else {
@@ -259,7 +266,7 @@ async function deleteDog(ctx) {
   }
 }
 
-async function updateDog(ctx) {
+async function updatePet(ctx) {
 
   try {
     let id = ctx.params.id
@@ -270,15 +277,8 @@ async function updateDog(ctx) {
       return;
     }
 
-    const breed = await breedModel.getById(body.breedID)
-    const createBy = await userModel.getById(body.createdBy)
-    requestBody = { ...body, breed, createBy }
+    requestBody = { ...body }
 
-    //don't need save this fields
-    delete requestBody.isFavourite
-    delete requestBody.comments
-    delete requestBody.breed
-    delete requestBody.createBy
 
     let result = await model.update(id, requestBody)
     if (result) {
@@ -286,6 +286,7 @@ async function updateDog(ctx) {
       ctx.body = result
     } else {
       ctx.status = 201
+
       ctx.body = "{}"
     }
   } catch (ex) {

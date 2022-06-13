@@ -25,7 +25,7 @@ const checkUser = async (jwt_payload, done) => {
         const user = result[0]
         //security
         delete user.password
-        delete user.googleId
+        //delete user.googleId
         return done(null, user)
     } else {
         //console.log(`No user found with username `)

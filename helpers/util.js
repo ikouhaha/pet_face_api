@@ -76,9 +76,28 @@ exports.filterPrepare = (filterData) => {
 
 
 exports.getImgByBase64 = (str64) => {
-    const [, type] = str64.split(';')[0].split(':')
+    //const [, type] = str64.split(';')[0].split(':')
     var base64Data = str64.replace(/^data:image\/(png|jpeg|jpg|gif);base64,/, '')
     const image = Buffer.from(base64Data, "base64")
+    
+    var type 
+    switch (base64Data.charAt(0)) {
+        case "/":
+            type="image/jpg"
+            break;
+        case "R":
+            type="image/png"
+            break;
+        case "i":
+            type="image/gif"
+            break;
+        case "P":
+            type="image/jpeg"
+            break;
+        default:
+            break;
+    }
+
     return { type, image }
 }
 
