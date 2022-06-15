@@ -27,10 +27,19 @@ async function profile(ctx, ext) {
     const user = { ...ctx.state.user, isLogin: true,token:ctx.headers.authorization }
     
     delete user.password
-    ctx.body = user
-  } else {
-    ctx.status = 204
+    if(ctx.state.user.status){
+      ctx.status = ctx.state.user.status
+    }
+    
+    if(ctx.state.user.message){
+      ctx.message = ctx.state.user.message
+    } 
 
+    ctx.body = user
+   
+  } else {
+    ctx.status = ctx.state.user.status
+    ctx.message = ctx.state.user.message
   }
 }
 

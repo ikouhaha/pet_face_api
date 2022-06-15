@@ -5,7 +5,6 @@ require('dotenv').config()
 
 const app = new Koa()
 
-const auth = require('./routes/auth.js')
 const breeds = require('./routes/breeds.js')
 const pets = require('./routes/pets.js')
 const user = require('./routes/users')
@@ -23,9 +22,18 @@ const static = require('koa-static-router')
 const cors = require('@koa/cors');
 
 
+var admin = require("firebase-admin");
+
+var serviceAccount = require("./serviceAccountKey.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
+
+
 const origin = config.COR_ORIGINS
 const options = {
-    origin: [origin]
+    origin: "*"
 
 }
 
@@ -35,7 +43,6 @@ app.use(cors(options));
 app.use(static({ dir: 'docs', router: '/doc/' }))
 app.use(bodyParser())
 app.use(passport.initialize())
-app.use(auth.routes())
 app.use(breeds.routes())
 app.use(pets.routes())
 app.use(user.routes())

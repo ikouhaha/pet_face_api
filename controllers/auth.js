@@ -3,4 +3,4 @@ const Passport = require('../helpers/passport.js')
 
 
 
-module.exports = Passport.authenticate(['jwt'],{session:false})
+module.exports = Passport.authenticate(['custom'],{session:false})
