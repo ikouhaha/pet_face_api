@@ -8,7 +8,7 @@ parameters:
     description: Numeric id of the dog 
 get:
   tags:
-    - pets
+    - posts
   description:
     Get dog by id.  staff can view edit action if the dog's company match with staff
   responses:
@@ -29,7 +29,7 @@ get:
       description: server error   
 put:
   tags:
-    - pets
+    - posts
   description: Update dog by ID.
   requestBody:
     description: All new dog data.
@@ -51,7 +51,7 @@ put:
       description: server error
 delete:
   tags:
-    - pets
+    - posts
   description: Delete dog by ID.
 responses:
     '200':

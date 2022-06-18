@@ -92,7 +92,7 @@ async function createUser(ctx) {
     
     body.dateRegistered = new Date()
     body.password = util.getHash(body.password)
-    body.isRegisterPet = false
+    body.isRegisterpost = false
     
     if (body.role == "staff") {
       let company = await companyModel.findByCode(body.companyCode)
@@ -169,8 +169,6 @@ async function updateUser(ctx) {
         return
       }
     }
-
-
     let result = await model.updateUser(id, body)
     if (result) {
       ctx.status = 201

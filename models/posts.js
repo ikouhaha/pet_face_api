@@ -1,7 +1,7 @@
 const db = require('../helpers/mongodb')
 
 
-const collection = "pets"
+const collection = "posts"
 
 exports.getAll = async function (page, limit, order) {
   let data = await db.run_query(collection, {})

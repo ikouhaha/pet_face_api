@@ -7,19 +7,19 @@ const Router = require('koa-router')
 const userModel = require('../models/users')
 const breedModel = require('../models/breeds')
 const commentModel = require('../models/comments')
-const model = require('../models/pets')
-const can = require('../permission/pet')
+const model = require('../models/posts')
+const can = require('../permission/post')
 const auth = require('../controllers/auth')
 const authWithPublic = require('../controllers/authWithPublic')
-const router = Router({ prefix: '/api/v1/pets' })
+const router = Router({ prefix: '/api/v1/posts' })
 const util = require('../helpers/util')
-const { validatePet } = require('../controllers/validation')
+const { validatepost } = require('../controllers/validation')
 const config = require('../config')
 
 
 //(ctx, next) => auth(ctx, next, true)
 // for public user , so specifiy auth method , if user is not found in db
-// , they can read pets but can't take any action
+// , they can read posts but can't take any action
 // otherwise , auth will check the user is login or not
 // router.get('/', authWithPublic, filterConverter, validateDogFilter, getAll)
 router.get('/', authWithPublic, getAll)
@@ -28,10 +28,10 @@ router.get('/:id([0-9]{1,})', authWithPublic, getById);
 router.get('/profile', auth, getAllByUserId);
 
 router.get('/image/:id([0-9]{1,})', getImageById);
-router.post('/', auth, validatePet, createPet)
+router.post('/', auth, validatepost, createpost)
 
-router.put('/:id([0-9]{1,})', auth, validatePet, updatePet)
-router.del('/:id([0-9]{1,})', auth, deletepet)
+router.put('/:id([0-9]{1,})', auth, validatepost, updatepost)
+router.del('/:id([0-9]{1,})', auth, deletepost)
 
 
 async function getAll(ctx, next) {
@@ -217,7 +217,7 @@ async function getById(ctx) {
   }
 }
 
-async function createPet(ctx) {
+async function createpost(ctx) {
   try {
     const body = ctx.request.body
     const permission = can.create(ctx.state.user)
@@ -242,12 +242,12 @@ async function createPet(ctx) {
 }
 
 
-async function deletepet(ctx) {
+async function deletepost(ctx) {
 
   try {
     let id = parseInt(ctx.params.id)
-    const pet = await model.getById(id)    
-    const permission = can.delete(ctx.state.user, {createdBy:pet.createdBy})
+    const post = await model.getById(id)    
+    const permission = can.delete(ctx.state.user, {createdBy:post.createdBy})
     if (!permission.granted) {
       ctx.status = 403;
       return;
@@ -266,7 +266,7 @@ async function deletepet(ctx) {
   }
 }
 
-async function updatePet(ctx) {
+async function updatepost(ctx) {
 
   try {
     let id = ctx.params.id

@@ -1301,7 +1301,7 @@
       }
     },
     {
-      "bred_for": "Guard pets, defending sheep from predators, mainly wolves, jackals and bears",
+      "bred_for": "Guard posts, defending sheep from predators, mainly wolves, jackals and bears",
       "breed_group": "Working",
       "height": {
         "imperial": "24 - 33.5",
@@ -3620,7 +3620,7 @@
       }
     },
     {
-      "bred_for": "Good luck charms, mascots, watchpets, herding pets, and companions",
+      "bred_for": "Good luck charms, mascots, watchposts, herding posts, and companions",
       "breed_group": "Non-Sporting",
       "height": {
         "imperial": "14 - 17",
@@ -3793,7 +3793,7 @@
         "width": 1600
       },
       "life_span": "12 - 15 years",
-      "name": "Whippet",
+      "name": "Whippost",
       "reference_image_id": "Hyv-ne94m",
       "temperament": "Friendly, Affectionate, Lively, Gentle, Intelligent, Quiet",
       "weight": {

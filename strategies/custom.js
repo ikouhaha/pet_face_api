@@ -28,6 +28,7 @@ const checkUser = async (req, done) => {
             user.avatarUrl = fuser.picture
             user.fid = fuser.uid
             user.email = fuser.email?fuser.email:null
+            user.username = fuser.uid
         
             await users.createUser(user)
             result = await users.findByFID(user.fid)

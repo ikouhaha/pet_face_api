@@ -1,7 +1,7 @@
 
 post:
   tags:
-    - pets
+    - posts
   description:
     Create a new dog.
   requestBody:

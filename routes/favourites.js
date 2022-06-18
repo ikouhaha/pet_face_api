@@ -1,7 +1,7 @@
 const Router = require('koa-router')
 
 
-const dogModel = require('../models/pets')
+const dogModel = require('../models/posts')
 const model = require('../models/users')
 const can = require('../permission/dog')
 const auth = require('../controllers/auth')
@@ -26,7 +26,7 @@ async function favouriteDog(ctx) {
 
     if(!dogFind){
       ctx.status = 404
-      ctx.body = "The pets not found"
+      ctx.body = "The posts not found"
       return;
     }
     //everyone can like the dog (data) , so no need check permission

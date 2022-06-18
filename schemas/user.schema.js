@@ -56,7 +56,7 @@ module.exports = {
 
         },
         "favourites": {
-            "description": "save favourite pets",
+            "description": "save favourite posts",
             "type": "object",
 
         },

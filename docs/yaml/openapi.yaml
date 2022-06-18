@@ -19,7 +19,7 @@ tags:
     description: API endpoints for user management.
   - name: Breeds
     description: Access and view breeds of the dog
-  - name: pets
+  - name: posts
     description: API endpoints for dog management.
   - name: Favourites
     description: API endpoints for favourites view and like/unlike.
@@ -90,13 +90,13 @@ paths:
     $ref: "./breeds.yaml"
   /breeds/{id}:
     $ref: "./breed.yaml"
-  /pets:
-    $ref: "./pets.yaml"
-  /pets/{filter}:
+  /posts:
+    $ref: "./posts.yaml"
+  /posts/{filter}:
     $ref: "./dogFilter.yaml"
-  /pets/{id}:
+  /posts/{id}:
     $ref: "./dog.yaml"
-  /pets/image/{id}:
+  /posts/image/{id}:
     $ref: "./dogImage.yaml"
   /favourites/{filter}:
     $ref: "./favourites.yaml"

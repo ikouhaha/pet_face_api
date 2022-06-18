@@ -50,7 +50,7 @@
             "type": "string"
         },
         "favourites": {
-            "description": "save favourite pets",
+            "description": "save favourite posts",
             "type": "object",
             "properties": {
                 "[dogId]": {

@@ -22,9 +22,9 @@ const expected = {
 
 
 
-describe('pets Testing Cases', () => {
+describe('posts Testing Cases', () => {
 
-  it('Return all pets by users favourites ', async () => {
+  it('Return all posts by users favourites ', async () => {
     const token = await helper.getLoginToken(request(app.callback()), "ikouhaha888", "123")     
     const res = await request(app.callback())
       .get('/api/v1/favourites?page=1&limit=10')     
@@ -55,7 +55,7 @@ describe('pets Testing Cases', () => {
   it('check the result after like', async () => {
     const token = await helper.getLoginToken(request(app.callback()), "ikouhaha888", "123")     
     const res = await request(app.callback())
-      .get('/api/v1/pets/78')     
+      .get('/api/v1/posts/78')     
       .set({ Authorization: token }) 
       .send({})
     
@@ -78,7 +78,7 @@ describe('pets Testing Cases', () => {
   it('check the result after unlike', async () => {
     const token = await helper.getLoginToken(request(app.callback()), "ikouhaha888", "123")     
     const res = await request(app.callback())
-      .get('/api/v1/pets/78')     
+      .get('/api/v1/posts/78')     
       .set({ Authorization: token }) 
       .send({})
     
