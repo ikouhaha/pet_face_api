@@ -7,13 +7,14 @@ const router = Router({ prefix: '/api/v1/breeds' })
 const util = require('../helpers/util')
 
 
-router.get('/', getAll) //for public user
+router.get('/:type', getAll) //for public user
 router.get('/:id([0-9]{1,})', getById); // for public user
 
 
 async function getAll(ctx, next) {
   try {
-    const results = await model.getAll()
+    const type = ctx.params.type;
+    const results = await model.getAll(type)
     if (results.length) {
       ctx.body = results;
     }
