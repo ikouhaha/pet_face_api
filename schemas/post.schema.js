@@ -18,13 +18,17 @@ module.exports = {
             "description": "The base64 format of image",
             "type": "string"
         },
+        "cropImageBase64":{
+            "description": "The base64 format of head crop image",
+            "type":"string"
+        },
         "breedID":{
             "description": "The breed id of post",
             "type": "integer"
         },
         "createdBy":{
             "description": "The post information create by",
-            "type": "integer?"
+            "type": "integer"
         },
         "companyCode":{
             "description": "The company code of post if it is a company post",
@@ -33,7 +37,11 @@ module.exports = {
         "imageFilename":{
             "description": "The imageFilename that saved in server",
             "type": "string"
+        },
+        "districtId":{
+            "description": "The district id in hong kong",
+            "type": "integer"
         }
     },
-    "required": ["type","imageBase64","imageFilename"]
+    "required": ["type","imageBase64","imageFilename","districtId"]
 }

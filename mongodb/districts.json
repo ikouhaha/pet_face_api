@@ -1,0 +1,74 @@
+[
+  {
+    "id":1,
+    "name":"Islands"
+  },
+  {
+    "id":2,
+    "name":"Kwai Tsing"
+  },
+  {
+    "id":3,
+    "name":"North"
+  },
+  {
+    "id":4,
+    "name":"Sai Kung"
+  },
+  {
+    "id":5,
+    "name":"Sha Tin"
+  },
+  {
+    "id":6,
+    "name":"Tai Po"
+  },
+  {
+    "id":7,
+    "name":"Tsuen Wan"
+  },
+  {
+    "id":8,
+    "name":"Tuen Mun"
+  },
+  {
+    "id":9,
+    "name":"Yuen Long"
+  },
+  {
+    "id":10,
+    "name":"Kowloon City"
+  },
+  {
+    "id":11,
+    "name":"Kwun Tong"
+  },
+  {
+    "id":12,
+    "name":"Sham Shui Po"
+  },
+  {
+    "id":13,
+    "name":"Wong Tai Sin"
+  },
+  {
+    "id":14,
+    "name":"Yau Tsim Mong"
+  },
+  {
+    "id":15,
+    "name":"Central and Western"
+  },
+  {
+    "id":16,
+    "name":"Eastern"
+  },
+  {
+    "id":17,
+    "name":"Southern"
+  },
+  {
+    "id":18,
+    "name":"Wan Chai"
+  }
+]

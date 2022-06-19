@@ -5,7 +5,7 @@ require('dotenv').config()
 
 const app = new Koa()
 
-const breeds = require('./routes/breeds.js')
+const optionsRouter = require('./routes/options.js')
 const posts = require('./routes/posts.js')
 const user = require('./routes/users')
 const chat = require('./routes/chat')
@@ -43,7 +43,7 @@ app.use(cors(options));
 app.use(static({ dir: 'docs', router: '/doc/' }))
 app.use(bodyParser())
 app.use(passport.initialize())
-app.use(breeds.routes())
+app.use(optionsRouter.routes())
 app.use(posts.routes())
 app.use(user.routes())
 app.use(company.routes())

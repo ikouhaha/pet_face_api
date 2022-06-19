@@ -1,20 +1,20 @@
 const Router = require('koa-router')
 const bodyParser = require('koa-bodyparser')
 
-const model = require('../models/breeds')
+const model = require('../models/options')
 
-const router = Router({ prefix: '/api/v1/breeds' })
+const router = Router({ prefix: '/api/v1/options' })
 const util = require('../helpers/util')
 
 
-router.get('/:type', getAll) //for public user
-router.get('/:id([0-9]{1,})', getById); // for public user
+router.get('/breeds/:type', getAllBreeds) 
+router.get('/districts', getAllDistricts) 
 
 
-async function getAll(ctx, next) {
+async function getAllBreeds(ctx, next) {
   try {
     const type = ctx.params.type;
-    const results = await model.getAll(type)
+    const results = await model.getAllBreeds(type)
     if (results.length) {
       ctx.body = results;
     }
@@ -24,6 +24,21 @@ async function getAll(ctx, next) {
 
   }
 }
+
+async function getAllDistricts(ctx, next) {
+  try {
+
+    const results = await model.getAllDistricts()
+    if (results.length) {
+      ctx.body = results;
+    }
+
+  } catch (ex) {
+    util.createErrorResponse(ctx, ex)
+
+  }
+}
+
 
 async function getById(ctx) {
   try {

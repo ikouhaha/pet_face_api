@@ -5,7 +5,7 @@ const Router = require('koa-router')
 
 
 const userModel = require('../models/users')
-const breedModel = require('../models/breeds')
+const breedModel = require('../models/options')
 const commentModel = require('../models/comments')
 const model = require('../models/posts')
 const can = require('../permission/post')
@@ -22,7 +22,7 @@ const config = require('../config')
 // , they can read posts but can't take any action
 // otherwise , auth will check the user is login or not
 // router.get('/', authWithPublic, filterConverter, validateDogFilter, getAll)
-router.get('/', authWithPublic, getAll)
+router.get('/', authWithPublic,filterConverter, getAll)
 router.get('/:id([0-9]{1,})', authWithPublic, getById);
 
 router.get('/profile', auth, getAllByUserId);
@@ -36,10 +36,19 @@ router.del('/:id([0-9]{1,})', auth, deletepost)
 
 async function getAll(ctx, next) {
   try {            
-    const results = await model.getAllByFilter(
-      {},
-      {unlimited:true,sorting:1},
-    ) 
+    var query = ctx.request.query
+    var results = null
+    if(query.searchText){
+      results = await model.getAllByFilter(
+        {$or:[{name:query.searchText},{about:query.searchText} ]},
+        {unlimited:false,sorting:-1,page:query.page,limit:query.limit},
+      ) 
+    }else{
+      results = await model.getAllByFilter(
+        {},
+        {unlimited:false,sorting:-1,page:query.page,limit:query.limit},
+      ) 
+    }
     if (results.length) {
       ctx.status = 200
       ctx.body = results          
@@ -79,7 +88,7 @@ async function getAllByUserId(ctx, next) {
 
 
 async function filterConverter(ctx, next) {
-  const tryConvert = (ctx, key) => {
+  const tryConvertInt = (ctx, key) => {
     try {
       if (ctx.request.query[key]) {
         ctx.request.query[key] = parseInt(ctx.request.query[key])
@@ -88,15 +97,23 @@ async function filterConverter(ctx, next) {
       console.error(ex)
     }
   }
+  const tryConvertStringLike = (ctx, key) => {
+    try {
+      if (ctx.request.query[key]) {
+        ctx.request.query[key] = new RegExp(".*" + ctx.request.query[key]  + ".*")
+      }
+    } catch (ex) {
+      console.error(ex)
+    }
+  }
   if (ctx && ctx.request && ctx.request.query) {
-    tryConvert(ctx, 'page')
-    tryConvert(ctx, 'limit')
-    tryConvert(ctx, 'breedID')
+    tryConvertInt(ctx, 'page')
+    tryConvertInt(ctx, 'limit')
+    tryConvertStringLike(ctx,"searchText")
 
   }
   await next()
 }
-
 
 /*
 async function getAll(ctx, next) {
@@ -227,6 +244,7 @@ async function createpost(ctx) {
       return;
     }
     body.createdBy = ctx.state.user.id
+    body.createdOn = new Date()
     let result = await model.add(body)
     if (result) {
       ctx.status = 201
