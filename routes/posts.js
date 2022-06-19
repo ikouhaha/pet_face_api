@@ -207,25 +207,10 @@ async function getById(ctx) {
         const canUpdate = can.update(ctx.state.user, result).granted
         const canDelete = can.delete(ctx.state.user, result).granted
         result.canUpdate = canUpdate;
-        result.canDelete = canDelete;
-        result.isFavourite = ctx.state.user.favourites[id]
-        
+        result.canDelete = canDelete;       
       }
-
-
-
-      result.comments = await commentModel.getByDogId(id)
-      for(let comment of result.comments){
-        comment.user = await userModel.getById(comment.userId)
-      }
-      const breed = await breedModel.getById(result.breedID)
-      const createBy = await userModel.getById(result.createdBy)
-
+      ctx.status = 200
       ctx.body = result;
-      result.breed = breed
-      result.createBy = createBy
-      
-
     }
 
   } catch (ex) {
