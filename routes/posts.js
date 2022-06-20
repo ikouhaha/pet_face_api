@@ -3,10 +3,6 @@
 const Router = require('koa-router')
 
 
-
-const userModel = require('../models/users')
-const breedModel = require('../models/options')
-const commentModel = require('../models/comments')
 const model = require('../models/posts')
 const can = require('../permission/post')
 const auth = require('../controllers/auth')
@@ -24,8 +20,7 @@ const config = require('../config')
 // router.get('/', authWithPublic, filterConverter, validateDogFilter, getAll)
 router.get('/', authWithPublic,filterConverter, getAll)
 router.get('/:id([0-9]{1,})', authWithPublic, getById);
-
-router.get('/profile', auth, getAllByUserId);
+router.get('/me', auth, getAllByUserId);
 
 router.get('/image/:id([0-9]{1,})', getImageById);
 router.post('/', auth, validatepost, createpost)
@@ -63,6 +58,7 @@ async function getAll(ctx, next) {
 
   }
 }
+
 
 
 async function getAllByUserId(ctx, next) {
@@ -250,6 +246,11 @@ async function deletepost(ctx) {
   try {
     let id = parseInt(ctx.params.id)
     const post = await model.getById(id)    
+    if(post==null){
+      ctx.status = 404
+      ctx.message = "the post is not found"
+      return
+    }
     const permission = can.delete(ctx.state.user, {createdBy:post.createdBy})
     if (!permission.granted) {
       ctx.status = 403;
