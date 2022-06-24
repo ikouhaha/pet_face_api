@@ -18,9 +18,10 @@ const config = require('../config')
 // , they can read posts but can't take any action
 // otherwise , auth will check the user is login or not
 // router.get('/', authWithPublic, filterConverter, validateDogFilter, getAll)
-router.get('/', authWithPublic,filterConverter, getAll)
+router.get('/', authWithPublic, filterConverter, getAll)
 router.get('/:id([0-9]{1,})', authWithPublic, getById);
 router.get('/me', auth, getAllByUserId);
+router.get('/filter/inames', auth, getAllByImageNames);
 
 router.get('/image/:id([0-9]{1,})', getImageById);
 router.post('/', auth, validatepost, createpost)
@@ -28,29 +29,38 @@ router.post('/', auth, validatepost, createpost)
 router.put('/:id([0-9]{1,})', auth, validatepost, updatepost)
 router.del('/:id([0-9]{1,})', auth, deletepost)
 
-
 async function getAll(ctx, next) {
-  try {            
+
+  try {
     var query = ctx.request.query
     var results = null
-    if(query.searchText){
-      results = await model.getAllByFilter(
-        {$or:[{name:query.searchText},{about:query.searchText} ]},
-        {unlimited:false,sorting:-1,page:query.page,limit:query.limit},
-      ) 
-    }else{
-      results = await model.getAllByFilter(
-        {},
-        {unlimited:false,sorting:-1,page:query.page,limit:query.limit},
-      ) 
+    var match = {}
+
+    const setMatchCriteria= (key, value) =>{
+      if(value!="" && value!=null && value !=undefined){
+        match[key] = value
+      }
     }
+
+    setMatchCriteria("type", query.type);
+    setMatchCriteria("petType", query.petType);
+    setMatchCriteria("about", query.about);
+    setMatchCriteria("districtId", query.districtId);
+    setMatchCriteria("breedId", query.breedId);
+    
+
+    results = await model.getAllByFilter(
+      match,
+      { unlimited: false, page: query.page, limit: query.limit },
+    )
+
     if (results.length) {
       ctx.status = 200
-      ctx.body = results          
-    }else{
+      ctx.body = results
+    } else {
       //return empty
       ctx.status = 200
-      ctx.body = []      
+      ctx.body = []
     }
 
   } catch (ex) {
@@ -62,18 +72,63 @@ async function getAll(ctx, next) {
 
 
 async function getAllByUserId(ctx, next) {
-  try {            
+  try {
     const results = await model.getAllByFilter(
       { "createdBy": ctx.state.user.id },
-      {unlimited:true,sorting:1},
-    ) 
+      { unlimited: true },
+    )
     if (results.length) {
       ctx.status = 200
-      ctx.body = results          
-    }else{
+      ctx.body = results
+    } else {
       //return empty
       ctx.status = 200
-      ctx.body = []      
+      ctx.body = []
+    }
+
+  } catch (ex) {
+    util.createErrorResponse(ctx, ex)
+
+  }
+}
+
+async function getAllByImageNames(ctx, next) {
+  try {
+
+    const names = ctx.request.query.name
+
+    if (!names || names.length <= 0) {
+      ctx.status = 200
+      ctx.body = []
+      return
+    }
+
+
+    const results = await model.getAllByFilter(
+      { "imageFilename": { $in: names } },
+      {
+        unlimited: true
+        
+        ,addFields: {
+          '__order': {
+            '$indexOfArray': [
+              names, '$imageFilename'
+            ]
+          }
+        }
+        ,order:{
+          "__order": 1
+        },
+        
+      },
+    )
+    if (results.length) {
+      ctx.status = 200
+      ctx.body = results
+    } else {
+      //return empty
+      ctx.status = 200
+      ctx.body = []
     }
 
   } catch (ex) {
@@ -96,7 +151,7 @@ async function filterConverter(ctx, next) {
   const tryConvertStringLike = (ctx, key) => {
     try {
       if (ctx.request.query[key]) {
-        ctx.request.query[key] = new RegExp(".*" + ctx.request.query[key]  + ".*")
+        ctx.request.query[key] = new RegExp(".*" + ctx.request.query[key] + ".*")
       }
     } catch (ex) {
       console.error(ex)
@@ -105,7 +160,7 @@ async function filterConverter(ctx, next) {
   if (ctx && ctx.request && ctx.request.query) {
     tryConvertInt(ctx, 'page')
     tryConvertInt(ctx, 'limit')
-    tryConvertStringLike(ctx,"searchText")
+    tryConvertStringLike(ctx, "about")
 
   }
   await next()
@@ -203,7 +258,7 @@ async function getById(ctx) {
         const canUpdate = can.update(ctx.state.user, result).granted
         const canDelete = can.delete(ctx.state.user, result).granted
         result.canUpdate = canUpdate;
-        result.canDelete = canDelete;       
+        result.canDelete = canDelete;
       }
       ctx.status = 200
       ctx.body = result;
@@ -245,19 +300,19 @@ async function deletepost(ctx) {
 
   try {
     let id = parseInt(ctx.params.id)
-    const post = await model.getById(id)    
-    if(post==null){
+    const post = await model.getById(id)
+    if (post == null) {
       ctx.status = 404
       ctx.message = "the post is not found"
       return
     }
-    const permission = can.delete(ctx.state.user, {createdBy:post.createdBy})
+    const permission = can.delete(ctx.state.user, { createdBy: post.createdBy })
     if (!permission.granted) {
       ctx.status = 403;
       return;
-    } 
+    }
     let result = await model.delete(id)
-    if (result) { 
+    if (result) {
       ctx.status = 201
       ctx.body = result
     } else {

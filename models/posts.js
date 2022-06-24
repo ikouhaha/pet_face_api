@@ -17,44 +17,36 @@ exports.getAllCount = async function (query={}) {
 }
 
 
-exports.getAllByFilter = async function (query,{unlimited=false,page, limit,order="id",sorting=-1}) {
+exports.getAllByFilter = async function (query,{unlimited=false,page, limit,order={"id":-1},addFields}) {
   let data;
-  if(unlimited){
-     data = await db.run_aggregate(collection, [
-      { $match:query},
-      //{$unwind:"$post"},
-      {$lookup:{from:"breeds",localField:"breedID",foreignField:"id",as:"breed"}},
-      {$lookup:{from:"users",localField:"createdBy",foreignField:"id",as:"createBy"}},
-      {$lookup:{from:"districts",localField:"districtId",foreignField:"id",as:"district"}},
-      {$unwind:{path:"$breed",preserveNullAndEmptyArrays:true}},
-      {$unwind:{path:"$createBy",preserveNullAndEmptyArrays:true}},
-      {$unwind:{path:"$district",preserveNullAndEmptyArrays:true}},
-      {$project:{_id:0,id:1,about:1,breedID:1,createdBy:1,imageBase64:1,cropImageBase64:1,createdOn:1
-        ,type:1,companyCode:1,imageFilename:1,petType:1,districtId:1,breed:"$breed.name",createdByName:"$createBy.displayName","district":"$district.name"}},
-      { $sort: { [order]: sorting } },     
-      
-    ])
-  
-  }else{
-    data = await db.run_aggregate(collection, [
-      { $match:query},
-      //{$unwind:"$post"},
-      {$lookup:{from:"breeds",localField:"breedID",foreignField:"id",as:"breed"}},
-      {$lookup:{from:"users",localField:"createdBy",foreignField:"id",as:"createBy"}},
-      {$lookup:{from:"districts",localField:"districtId",foreignField:"id",as:"district"}},
-      {$unwind:{path:"$breed",preserveNullAndEmptyArrays:true}},
-      {$unwind:{path:"$createBy",preserveNullAndEmptyArrays:true}},
-      {$unwind:{path:"$district",preserveNullAndEmptyArrays:true}},
-      {$project:{_id:0,id:1,about:1,breedID:1,createdBy:1,imageBase64:1,cropImageBase64:1,createdOn:1
-        ,type:1,companyCode:1,imageFilename:1,petType:1,districtId:1,breed:"$breed.name",createdByName:"$createBy.displayName","district":"$district.name"}},
-      { $sort: { [order]: sorting } },
-      { $skip: (page-1)*limit },
-      { $limit: limit },
-      
-    ])
-  
+
+
+  let stages = []
+  stages.push({ $match:query})
+  if(addFields){
+    stages.push({$addFields:addFields})
+    stages.push({$sort:order})
   }
- 
+  stages.push({$lookup:{from:"breeds",localField:"breedID",foreignField:"id",as:"breed"}})
+  stages.push({$lookup:{from:"users",localField:"createdBy",foreignField:"id",as:"createBy"}})
+  stages.push({$lookup:{from:"districts",localField:"districtId",foreignField:"id",as:"district"}})
+  stages.push({$unwind:{path:"$breed",preserveNullAndEmptyArrays:true}})
+  stages.push({$unwind:{path:"$createBy",preserveNullAndEmptyArrays:true}})
+  stages.push({$unwind:{path:"$district",preserveNullAndEmptyArrays:true}})
+
+
+  stages.push({$project:{_id:0,id:1,_order:1,imageFilename:1,about:1,breedID:1,createdBy:1,createdOn:1,imageBase64:1,cropImageBase64:1
+    ,type:1,companyCode:1,imageFilename:1,petType:1,districtId:1,breed:"$breed.name",createdByName:"$createBy.displayName","district":"$district.name"}})
+  
+
+  if(!unlimited){
+    stages.push( { $skip: (page-1)*limit })
+    stages.push( { $limit: limit })
+  }
+  stages.push({$sort:order})
+
+  data = await db.run_aggregate(collection, stages)
+
 
   return data
 }

@@ -14,7 +14,7 @@ const checkUser = async (req, done) => {
 
         var token = req.headers.authorization==null?null:req.headers.authorization.replace("Bearer ", "");
         var fuser = await admin.auth().verifyIdToken(token)
-        result = await users.findByFID(fuser.uid)
+        result = await users.findByEmail(fuser.email)
 
 
         if (!result&&fuser) {
