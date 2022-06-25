@@ -95,13 +95,27 @@ async function getAllByUserId(ctx, next) {
 async function getAllByImageNames(ctx, next) {
   try {
 
-    const names = ctx.request.query.name
+    var names = ctx.request.query.name
 
-    if (!names || names.length <= 0) {
+    if (!names) {
       ctx.status = 200
       ctx.body = []
       return
     }
+
+    if(typeof names == 'string'){
+      if(names.length>0){
+        names = [names]
+      }
+      
+    }
+
+     if (names.length<=0) {
+      ctx.status = 200
+      ctx.body = []
+      return
+    }
+    
 
 
     const results = await model.getAllByFilter(
