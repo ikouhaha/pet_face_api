@@ -52,7 +52,7 @@ exports.updateUser = async function (id,user){
   return status
 }
 
-exports.deleteUser = async function (id){
-  let status = await db.run_delete(collection, { 'id': parseInt(id) })
+exports.deleteUser = async function (email){
+  let status = await db.run_delete_many(collection, { 'email': email })
   return status
 }

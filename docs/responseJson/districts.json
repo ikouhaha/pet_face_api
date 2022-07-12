@@ -1,0 +1,92 @@
+[
+    {
+        "_id": "Wong Tai Sin",
+        "name": "Wong Tai Sin",
+        "value": 13
+    },
+    {
+        "_id": "Tsuen Wan",
+        "name": "Tsuen Wan",
+        "value": 7
+    },
+    {
+        "_id": "Tuen Mun",
+        "name": "Tuen Mun",
+        "value": 8
+    },
+    {
+        "_id": "Sai Kung",
+        "name": "Sai Kung",
+        "value": 4
+    },
+    {
+        "_id": "Yuen Long",
+        "name": "Yuen Long",
+        "value": 9
+    },
+    {
+        "_id": "North",
+        "name": "North",
+        "value": 3
+    },
+    {
+        "_id": "Kwun Tong",
+        "name": "Kwun Tong",
+        "value": 11
+    },
+    {
+        "_id": "Southern",
+        "name": "Southern",
+        "value": 17
+    },
+    {
+        "_id": "Tai Po",
+        "name": "Tai Po",
+        "value": 6
+    },
+    {
+        "_id": "Islands",
+        "name": "Islands",
+        "value": 1
+    },
+    {
+        "_id": "Kowloon City",
+        "name": "Kowloon City",
+        "value": 10
+    },
+    {
+        "_id": "Kwai Tsing",
+        "name": "Kwai Tsing",
+        "value": 2
+    },
+    {
+        "_id": "Wan Chai",
+        "name": "Wan Chai",
+        "value": 18
+    },
+    {
+        "_id": "Yau Tsim Mong",
+        "name": "Yau Tsim Mong",
+        "value": 14
+    },
+    {
+        "_id": "Sha Tin",
+        "name": "Sha Tin",
+        "value": 5
+    },
+    {
+        "_id": "Eastern",
+        "name": "Eastern",
+        "value": 16
+    },
+    {
+        "_id": "Sham Shui Po",
+        "name": "Sham Shui Po",
+        "value": 12
+    },
+    {
+        "_id": "Central and Western",
+        "name": "Central and Western",
+        "value": 15
+    }
+]

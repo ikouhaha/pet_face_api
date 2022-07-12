@@ -9,7 +9,6 @@ const { validateCompany } = require('../controllers/validation')
 
 router.get('/', auth, getAll)
 router.get('/:id([0-9]{1,})', auth, getById);
-router.post('/', validateCompany, createCompany) //for public user register
 
 
 async function getAll(ctx) {
@@ -45,28 +44,6 @@ async function getById(ctx) {
     util.createErrorResponse(ctx,ex)
 
   }
-}
-
-async function createCompany(ctx) {
-  try {
-    const body = ctx.request.body
-    body.dateRegistered = new Date()
-    body.code = util.genUUID()
-    let result = await model.createCompany(body)
-    
-    if (result) {
-      result.code = body.code
-      ctx.status = 201
-      ctx.body = result
-    } else {
-      ctx.status = 201
-      ctx.body = "{}"
-    }
-  } catch (ex) {
-    util.createErrorResponse(ctx,ex)
-
-  }
-
 }
 
 

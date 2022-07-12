@@ -79,6 +79,14 @@ exports.run_delete = async (collection, query) => {
   return { "status": 201, "message": `${result.deletedCount} data delete successfully` }
 }
 
+exports.run_delete_many = async (collection, query) => {
+
+  const dbClient = await mongoClient.connect(CONNECTION_URI)
+  const result = await dbClient.db(DATABASE_NAME).collection(collection).deleteMany(query)
+  await dbClient.close()
+  return { "status": 201, "message": `${result.deletedCount} data delete successfully` }
+}
+
 exports.run_insert_many = async (collection, document) => {
   const dbClient = await mongoClient.connect(CONNECTION_URI)
 
@@ -91,10 +99,31 @@ exports.run_insert_many = async (collection, document) => {
   return { "status": 201, "message": "Data insert successfully" }
 }
 
+exports.getNextSequenceValue = async (collection) => {
+  const dbClient = await mongoClient.connect(CONNECTION_URI)
+
+  const seq = await _getNextSequenceValueNoUpdate(dbClient, collection)
+   
+
+  await dbClient.close()
+  return seq
+}
+
+
 
 //get next id from collection
 _getNextSequenceValue = async (dbClient, sequenceName) => {
   var sequenceDocument = await dbClient.db(DATABASE_NAME).collection("counters").findOneAndUpdate(
+    { _id: sequenceName },
+    { $inc: { sequence_value: 1 } },
+    { returnNewDocument: true, upsert: true }
+
+  );
+  return sequenceDocument.value.sequence_value;
+}
+
+_getNextSequenceValueNoUpdate = async (dbClient, sequenceName) => {
+  var sequenceDocument = await dbClient.db(DATABASE_NAME).collection("counters").findOne(
     { _id: sequenceName },
     { $inc: { sequence_value: 1 } },
     { returnNewDocument: true, upsert: true }

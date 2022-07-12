@@ -4,13 +4,28 @@
 const CustomStrategy = require("passport-custom").Strategy
 var admin = require("firebase-admin");
 const users = require('../models/users')
-const util = require('../helpers/util')
+const util = require('../helpers/util');
+const  config  = require("../config");
+const  testData  = require("../testData");
 
 const checkUser = async (req, done) => {
     // look up the user and check the password if the user exists
     // call done() with either an error or the user, depending on outcome
 
     try {
+        
+        if(config.IS_TEST){
+            var user = null;
+            if(config.TEST_MODE=="2"){
+                user = testData.adminUser;
+            }else if(config.TEST_MODE=="3"){
+                user = testData.user2;
+            } else{
+                user = testData.user;
+            }
+          
+            return done(null, user);
+        }
 
         var token = req.headers.authorization==null?null:req.headers.authorization.replace("Bearer ", "");
         var fuser = await admin.auth().verifyIdToken(token)

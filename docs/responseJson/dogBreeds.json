@@ -1,0 +1,22 @@
+[
+    {
+        "_id": "Corgi",
+        "name": "Corgi",
+        "value": 6
+    },
+    {
+        "_id": "Husky",
+        "name": "Husky",
+        "value": 7
+    },
+    {
+        "_id": "Others",
+        "name": "Others",
+        "value": 8
+    },
+    {
+        "_id": "Shiba Inu",
+        "name": "Shiba Inu",
+        "value": 5
+    }
+]

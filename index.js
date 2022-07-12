@@ -8,10 +8,7 @@ const app = new Koa()
 const optionsRouter = require('./routes/options.js')
 const posts = require('./routes/posts.js')
 const user = require('./routes/users')
-const chat = require('./routes/chat')
-const comments = require('./routes/comments')
 const company = require('./routes/companies')
-const favourites = require('./routes/favourites')
 const passport = require('./helpers/passport')
 const config = require('./config')
 
@@ -47,8 +44,6 @@ app.use(optionsRouter.routes())
 app.use(posts.routes())
 app.use(user.routes())
 app.use(company.routes())
-app.use(favourites.routes())
-app.use(comments.routes())
 
 const port = config.PORT
 const host = config.HOST
@@ -67,4 +62,3 @@ const io = socketIo(server, {
     //transports: ["websocket","polling"] 
 });
 
-chat(io)

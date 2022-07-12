@@ -83,6 +83,12 @@ exports.delete = async function (id) {
   return data
 }
 
+exports.deleteTest = async function (about) {
+  let data = await db.run_delete_many(collection, { 'about': about })
+  return data
+}
+
+
 exports.update = async function (id,document) {
   let data = await db.run_update(collection,{ 'id': parseInt(id) }, document)
   return data
@@ -92,5 +98,10 @@ exports.update = async function (id,document) {
 exports.add = async function (document) {
   let status = await db.run_insert(collection, document)
   return status
+}
+
+exports.findMaxId = async function () {
+  let seq = await db.getNextSequenceValue(collection)
+  return seq
 }
 

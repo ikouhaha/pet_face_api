@@ -14,8 +14,4 @@ exports.getAll = async function () {
 }
 
 
-exports.createCompany = async function (company) {
-  let status = await db.run_insert(collection, company)
-  return status
-}
 

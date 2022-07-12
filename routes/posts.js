@@ -17,7 +17,6 @@ const config = require('../config')
 // for public user , so specifiy auth method , if user is not found in db
 // , they can read posts but can't take any action
 // otherwise , auth will check the user is login or not
-// router.get('/', authWithPublic, filterConverter, validateDogFilter, getAll)
 router.get('/', authWithPublic, filterConverter, getAll)
 router.get('/:id([0-9]{1,})', authWithPublic, getById);
 router.get('/me', auth, getAllByUserId);

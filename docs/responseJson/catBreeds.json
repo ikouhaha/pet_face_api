@@ -1,0 +1,22 @@
+[
+    {
+        "_id": "Calico",
+        "name": "Calico",
+        "value": 1
+    },
+    {
+        "_id": "Tortoiseshell",
+        "name": "Tortoiseshell",
+        "value": 3
+    },
+    {
+        "_id": "Others",
+        "name": "Others",
+        "value": 4
+    },
+    {
+        "_id": "Tuxedo",
+        "name": "Tuxedo",
+        "value": 2
+    }
+]

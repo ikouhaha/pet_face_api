@@ -6,8 +6,7 @@ const can = require('../permission/user')
 const auth = require('../controllers/auth')
 const router = Router({ prefix: '/api/v1/users' })
 const util = require('../helpers/util')
-const config = require('../config')
-const axios = require('axios')
+const testData = require('../testData')
 
 const { validateUser,validateUserProfile,validateUserPwd,validateUserGoogle } = require('../controllers/validation')
 
@@ -16,9 +15,7 @@ router.get('/:id([0-9]{1,})', auth, getById);
 router.post('/', validateUser, createUser) //for public user register, so without auth
 router.put('/:id([0-9]{1,})', auth, validateUserProfile, updateUser)
 router.put('/connect/:id([0-9]{1,})', auth, validateUserGoogle, updateUser)
-// router.del('/:id([0-9]{1,})', auth, deleteUser)
 router.put('/p/:id([0-9]{1,})', auth, validateUserPwd, updateUserPwd)
-
 router.get('/profile',auth, profile)
 
 async function profile(ctx, ext) {
@@ -119,31 +116,6 @@ async function createUser(ctx) {
   }
 
 }
-
-// async function deleteUser(ctx) {
-
-//   try {
-//     let id = parseInt(ctx.params.id)
-//     const body = ctx.request.body
-//     //check the role permission
-//     const permission = can.delete(ctx.state.user, { "id": id })
-//     if (!permission.granted) {
-//       ctx.status = 403;
-//       return;
-//     }
-//     let result = await model.deleteUser(id)
-//     if (result) {
-//       ctx.status = 201
-//       ctx.body = result
-//     } else {
-//       ctx.status = 201
-//       ctx.body = "{}"
-//     }
-//   } catch (ex) {
-//     util.createErrorResponse(ctx, ex)
-
-//   }
-// }
 
 async function updateUser(ctx) {
 
