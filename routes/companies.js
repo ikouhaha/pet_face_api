@@ -30,13 +30,13 @@ async function getAll(ctx) {
 
 async function getById(ctx) {
   try {
-    let id = parseInt(ctx.params.id)
-    const permission = can.read(ctx.state.user, { "id": id })
+    let id = ctx.params.id
+    const permission = can.read(ctx.state.user, { "companyCode": id })
     if (!permission.granted) {
       ctx.status = 403;
     } else {
-      const result = await model.getById(id)
-      if (result.length) {
+      const result = await model.findByCode(id)
+      if (result) {
         ctx.body = result;
       }
     }

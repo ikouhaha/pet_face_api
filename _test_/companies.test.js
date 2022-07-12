@@ -1,38 +1,32 @@
+const config = require('../config')
 const request = require('supertest')
 const app = require('./common/index')
-const allBreedsExpected = require("../docs/responseJson/breeds.json")[0]
-const breedDetailExpected = require("../docs/responseJson/breed.json")
+const companies = require('../docs/responseJson/companies.json')
 
-describe('Breeds Testing Cases', () => {
-  it('Return all breeds', async() => {
+//admin role check company
+describe('admin role check all company', () => {
+  it('Return all companies', async() => {
+    config.TEST_MODE = "2"
     const res = await request(app.callback())
-      .get('/api/v1/breeds')
+      .get('/api/v1/companies')
       .send({})
     expect(res.statusCode).toEqual(200)
     expect(res.type).toEqual("application/json")
-    expect(res.body).toContainEqual(allBreedsExpected)
+    expect(res.body).toContainEqual(companies)
     
   })
 
-  it('Return all dog breeds', async() => {
+  it('Return all companies', async() => {
+    config.TEST_MODE = "2"
     const res = await request(app.callback())
-      .get('/api/v1/breeds/dog')
+      .get('/api/v1/companies/111')
       .send({})
     expect(res.statusCode).toEqual(200)
     expect(res.type).toEqual("application/json")
-    expect(res.body).toContainEqual(allBreedsExpected)
+    expect(res.body).toEqual(companies)
     
   })
 
-  
-  it('get breed information by id', async() => {
-    const res = await request(app.callback())
-      .get('/api/v1/breeds/1')
-      .send()
-    expect(res.statusCode).toEqual(200)
-    expect(res.type).toEqual("application/json")
-    expect(res.body).toEqual(breedDetailExpected)
-    
-  })
+ 
   
 })
