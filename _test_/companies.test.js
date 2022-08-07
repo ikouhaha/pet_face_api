@@ -16,7 +16,7 @@ describe('admin role check all company', () => {
     
   })
 
-  it('Return all companies', async() => {
+  it('Return the company', async() => {
     config.TEST_MODE = "2"
     const res = await request(app.callback())
       .get('/api/v1/companies/111')
